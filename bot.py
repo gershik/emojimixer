@@ -39,9 +39,6 @@ def about(update: Update, context: CallbackContext) -> None:
 
 def mix(update: Update, context: CallbackContext) -> None:
     pair = update.message.text
-    if len(pair) != 2: 
-        context.bot.send_message(chat_id=update.effective_chat.id, text="Please enter exactly 2 emoji")
-        return
     if pair[::-1] in s.dict:
         pair = pair[::-1]
     if pair in s.dict:
@@ -49,7 +46,10 @@ def mix(update: Update, context: CallbackContext) -> None:
         context.bot.send_sticker(chat_id=update.effective_chat.id, sticker=file_id)
     else:
         mixed = []
-        mixed += mixer.make_mix(list(pair))
+        try: 
+            mixed += mixer.make_mix(list(pair))
+        except IndexError: 
+            context.bot.send_message(chat_id=update.effective_chat.id, text="Please enter exactly 2 emoji")
         if mixed[0] == 200 or mixed[0] == 'bruted': 
             file_id = (context.bot.send_sticker(chat_id=config.get('section_a', 'cache_id'), sticker=mixed[1]))['sticker']['file_id']
             context.bot.send_sticker(chat_id=update.effective_chat.id, sticker=file_id)
@@ -69,11 +69,6 @@ def inline_mix(update: Update, context: CallbackContext):
     pair = update.inline_query.query
     if not pair:
         return
-    if len(pair) != 2: 
-        context.bot.answer_inline_query(
-            update.inline_query.id, results='',
-            switch_pm_text = "Please enter exactly 2 emoji", switch_pm_parameter = '0')
-        return
     results = []
     if pair[::-1] in s.dict:
         pair = pair[::-1]
@@ -81,7 +76,14 @@ def inline_mix(update: Update, context: CallbackContext):
         file_id=s.dict[pair]
         results.append(InlineQueryResultCachedSticker(id=pair, sticker_file_id=file_id,))
     else:
-        mixed = mixer.make_mix(list(pair))
+        mixed = []
+        try: 
+            mixed += mixer.make_mix(list(pair))
+        except IndexError: 
+            context.bot.answer_inline_query(
+            update.inline_query.id, results='',
+            switch_pm_text = "Please enter exactly 2 emoji", switch_pm_parameter = '0')
+            return
         if mixed[0] == 200 or mixed[0] == 'bruted':
             file_id = (context.bot.send_sticker(
                 chat_id=config.get('section_a','cache_id'), sticker=mixed[1]))['sticker']['file_id']
