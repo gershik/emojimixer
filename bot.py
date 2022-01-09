@@ -30,7 +30,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 def start(update: Update, context: CallbackContext) -> None:
     context.bot.send_message(chat_id=update.effective_chat.id,
-    text="Hi!👋 I'm Emoji Mixer. To use me, type @emomixbot followed by any two emoji in the input field, like this: 🤔🐢. You can also just send two emoji here.")
+    text="Hi!👋 I'm Emoji Mixer. To use me, type @emomixbot followed by any two emoji in the input field, like this: 🤔🐢. You can also just send two emoji here. To see the list of available emoji, type /about.")
 
 def about(update: Update, context: CallbackContext) -> None:
     context.bot.send_message(chat_id=update.effective_chat.id,
@@ -48,6 +48,7 @@ def mix(update: Update, context: CallbackContext) -> None:
         mixed = []
         try: 
             mixed += mixer.make_mix(list(pair))
+            #print(mixed)
         except IndexError: 
             context.bot.send_message(chat_id=update.effective_chat.id, text="Please enter exactly 2 emoji")
         if mixed[0] == 200 or mixed[0] == 'bruted': 
@@ -55,7 +56,7 @@ def mix(update: Update, context: CallbackContext) -> None:
             context.bot.send_sticker(chat_id=update.effective_chat.id, sticker=file_id)
             s.dict[pair] = file_id
             s.sync()
-            if mixed == 'bruted': 
+            if mixed[0] == 'bruted': 
                 context.bot.send_message(
                     chat_id=config.get('section_a','owner_id'), 
                     text=pair + pair.encode('unicode-escape').decode('ASCII'))
