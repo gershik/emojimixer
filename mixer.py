@@ -19,7 +19,7 @@ def generate_urls(emoji):
                 #print(codes)
         
         
-        print(codes)
+        #print(codes)
         
         for date in emojilist.dates:
             url_variants += [
@@ -29,7 +29,7 @@ def generate_urls(emoji):
         return(url_variants)
 
 def make_mix(emoji):
-    print(emoji)
+    #print(emoji)
     for bundle in emojilist.redirects:
         for index, current_given in enumerate(emoji):
             if current_given == '\ufe0f' or current_given == '\u200d' or emoji[index-1] == '\u200d':
@@ -37,7 +37,7 @@ def make_mix(emoji):
             if current_given in bundle[0]:
                 emoji[index] = bundle[0][0]
                     
-    print(emoji)
+    #print(emoji)
     codes = ['', '']
     num = 0
     for i in emoji:
@@ -50,7 +50,7 @@ def make_mix(emoji):
             codes[num] += j[2:]
         elif '1f573' in j or '1f577' in j:
             codes[num] += j[5:] + '-ufe0f'
-            print(j)
+            #print(j)
         elif 'u' in j:
             codes[num] += j[2:]
         else: 
@@ -58,19 +58,19 @@ def make_mix(emoji):
         num += 1
 
     url_variants = generate_urls(codes)
-    #print(url_variants)
+    print(url_variants)
 
     for url in url_variants: 
         response = requests.get(url, stream=True)
         if response.status_code != 404: 
             break
     if response.status_code == 404: 
-        if '\u2665' in emoji or '\u2764' in emoji:
-            make_mix([i.replace('\u2764','\u2665') for i in emoji])
-            make_mix([i.replace('\u2665','\u2764') for i in emoji])
-            # print([i.encode('unicode-escape').decode('ASCII') for i in a])
-            # make_mix([i.replace('\u2665','\u2764') for i in emoji])
-            # make_mix([i.replace('\u2764','\u2665') for i in emoji])
+        # if '\u2665' in emoji or '\u2764' in emoji:
+        #     make_mix([i.replace('\u2764','\u2665') for i in emoji])
+        #     #make_mix([i.replace('\u2665','\u2764') for i in emoji])
+        #     # print([i.encode('unicode-escape').decode('ASCII') for i in a])
+        #     # make_mix([i.replace('\u2665','\u2764') for i in emoji])
+        #     # make_mix([i.replace('\u2764','\u2665') for i in emoji])
         return 404, 404
     
     
@@ -78,11 +78,11 @@ def make_mix(emoji):
     image = image.convert('RGBA')
     img = io.BytesIO()
     image.save(img, format='webp')
-    image.save(open ('img.webp', 'wb'), format='webp')
+    #image.save(open ('img.webp', 'wb'), format='webp')
     sticker=img.getvalue()
     
     if len(url_variants) > 2: 
         return 'bruted', sticker
-    else: return response.status_code, sticker
+    return response.status_code, sticker
 
-make_mix(list('♥️♥️'))
+#make_mix(list('🐯🐱'))

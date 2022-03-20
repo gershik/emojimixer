@@ -34,7 +34,7 @@ def start(update: Update, context: CallbackContext) -> None:
 
 def about(update: Update, context: CallbackContext) -> None:
     context.bot.send_message(chat_id=update.effective_chat.id,
-    text="🤔 *What is this bot for?*\nThis bot mixes a pair of emoji into a new, combined one\n\n🪄 *How does it work?*\nIt uses Google's images from the Emoji Kitchen feature of their keyboard\n\n👨🏻‍💻 *Who created it?*\nThis bot was created by @gershik\. Its source code will soon be available on GitHub\n\n🎯 *Which emoji are supported?*\nAccording to [Emojipedia](https://emojipedia.org/emoji-kitchen/), the following ones are supported:\n😀😃😄😁😆😅😂🤣😭😗😙😚😘🥰😍🥳🤗🙃🙂🥲🥹☺️😊😏😌😉🫢🤭😶😐😑😔😋😛😝😜🤪🫡🤔🤨🧐🙄😒😤😠😡🤬☹️🙁🫤😕😟🥺😳😬🤐🤫😰😨😧😦😮😯😲🫣😱🤯😢😥😓😞😮‍💨😖😣😩😫🤤🥱😴😪🌛🌜🌞🤢🤮🤧🤒🤕🥴🫠😶‍🌫️😵‍💫🫥😵🥵🥶😷😇🤠🤑😎🤓🥸🤥🤡👻💩👽🤖🎃😈👿☠️🔥💫⭐🌟✨💯💨💦💤🕳️🎉🎊😺😸😹😻😼😽🙀😿😾❤️🧡💛💚💙💜🤎🖤🤍♥️💘💝💖💗💗💞💕💌💟❣️❤️‍🩹💔❤️‍🔥💋🦠💀👁️💐🌹🌷🌸🌼🌵🌲🪵🌫️🌪️☃️⛄❄️🔥☀️☁️🌈🌠🌍🌎🌏🙈🙉🙊🐵🦁🐱🐶🐻🐨🐼🐭🐰🦝🐷🐽🦄🐢🐁🐇🐈🐩🐕🦮🐕‍🦺🐖🐐🦌🦙🦥🐒🦔🦇🪶🐦🦉🐧🐟🐙🦂🕷️🐌🐝🍓🍊🍍🍌🍋🌶️🥑🍞🥖🧀🌭🎂🧁☕ 🍴🍽️🎠🌇🏙️🌆🌃🌐🎈🎁🎄🎗️🥇🥈🥉🏅🎖️🏆🎣🪄🎼🎵🎶🎧🧸👑💎🕶️🪓🩹📰🔮\nUnfortunately, some of these don't work in the bot yet\.", parse_mode='MarkdownV2')
+    text="🤔 *What is this bot for?*\nThis bot mixes a pair of emoji into a new, combined one\.\n\n🪄 *How does it work?*\nIt uses Google's images from the Emoji Kitchen feature of their keyboard\.\n\n👨🏻‍💻 *Who created it?*\nThis bot was created by @gershik\. Its source code is available on [GitHub](https://github.com/gershik/emojimixer)\.\n\n🎯 *Which emoji are supported?*\nAccording to [Emojipedia](https://emojipedia.org/emoji-kitchen/), the following ones are supported:\n😀😃😄😁😆😅😂🤣😭😗😙😚😘🥰😍🥳🤗🙃🙂🥲🥹☺️😊😏😌😉🫢🤭😶😐😑😔😋😛😝😜🤪🫡🤔🤨🧐🙄😒😤😠😡🤬☹️🙁🫤😕😟🥺😳😬🤐🤫😰😨😧😦😮😯😲🫣😱🤯😢😥😓😞😮‍💨😖😣😩😫🤤🥱😴😪🌛🌜🌞🤢🤮🤧🤒🤕🥴🫠😶‍🌫️😵‍💫🫥😵🥵🥶😷😇🤠🤑😎🤓🥸🤥🤡👻💩👽🤖🎃😈👿☠️🔥💫⭐🌟✨💯💨💦💤🕳️🎉🎊😺😸😹😻😼😽🙀😿😾❤️🧡💛💚💙💜🤎🖤🤍♥️💘💝💖💗💗💞💕💌💟❣️❤️‍🩹💔❤️‍🔥💋🦠💀👁️💐🌹🌷🌸🌼🌵🌲🪵🌫️🌪️☃️⛄❄️🔥☀️☁️🌈🌠🌍🌎🌏🙈🙉🙊🐵🐯🦁🐱🐶🐻🐨🐼🐭🐰🦝🐷🐽🦄🐢🐁🐇🐈🐩🐕🦮🐕‍🦺🐖🐐🦌🦙🦥🐒🦔🦇🪶🐦🦉🐧🐟🐙🦂🕷️🐌🐝🍓🍊🍍🍌🍋🌶️🥑🍞🥖🧀🌭🎂🧁☕ 🍴🍽️🎠🌇🏙️🌆🌃🌐🎈🎁🎄🎗️🥇🥈🥉🏅🎖️🏆🎣🪄🎼🎵🎶🎧🧸👑💎🕶️🪓🩹📰🔮\nUnfortunately, some of these may not work in the bot yet\.\n\n*Why doesn't ❤️ work?*\nTry ♥️\.", parse_mode='MarkdownV2', disable_web_page_preview=True)
 
 
 def mix(update: Update, context: CallbackContext) -> None:
@@ -60,10 +60,10 @@ def mix(update: Update, context: CallbackContext) -> None:
                 context.bot.send_message(
                     chat_id=config.get('section_a','owner_id'), 
                     text=pair + pair.encode('unicode-escape').decode('ASCII'))
-        elif  mixed[0] == 404:
+        elif mixed[0] == 404:
             context.bot.send_message(
                 chat_id=update.effective_chat.id, 
-                text="Unfortunately, these emoji don't mix.")
+                text="Unfortunately, these emoji don't mix. See /about for the list of available emoji.")
         else: context.bot.send_message(chat_id=update.effective_chat.id, text=f"Weird error. Please report it to @gershik with the emoji that you tried. Code: {mixed[0]}_{pair}")
 
 def inline_mix(update: Update, context: CallbackContext):
@@ -98,7 +98,7 @@ def inline_mix(update: Update, context: CallbackContext):
         elif mixed[0] == 404:
             context.bot.answer_inline_query(
                 update.inline_query.id, results,
-                switch_pm_text = "Unfortunately, these emoji don't mix.",
+                switch_pm_text = "Unfortunately, these emoji don't mix. See /about for the list of available emoji.",
                 switch_pm_parameter = '0')
         else:
             context.bot.answer_inline_query(
