@@ -8,11 +8,14 @@ import mixer
 import storage
 
 def generate_config(config):
+#   # I made a config generator to facilitate starting the bot up
     config['section_a'] = {'private_token': '', 'owner_id': 'yes', 'cache_id': ''}
+#   # here we generate the required keys inside the config file
     while True:
         try:
             config['section_a']['private_token'] = str(input('Enter Bot API Token: '))
             validator = Updater(token=config.get('section_a','private_token'))
+#           # Updater is called to verify the token
             validator.stop()
         except InvalidToken:
             print('Invalid token provided. Please, try again')
@@ -41,9 +44,11 @@ def mix(update: Update, context: CallbackContext) -> None:
     pair = update.message.text
     if pair[::-1] in s.dict:
         pair = pair[::-1]
+#       # if a reverse of the pair is stored, we swap the requested emoji
     if pair in s.dict:
         file_id=s.dict[pair]
         context.bot.send_sticker(chat_id=update.effective_chat.id, sticker=file_id)
+#       # if we have the file saved, just return it, no need to ask Google again
     else:
         mixed = []
         try: 
@@ -51,9 +56,12 @@ def mix(update: Update, context: CallbackContext) -> None:
             #print(mixed)
         except IndexError: 
             context.bot.send_message(chat_id=update.effective_chat.id, text="Please enter exactly 2 emoji")
+#           # Google mixes them in pairs, so we check the amount
         if mixed[0] == 200 or mixed[0] == 'bruted': 
             file_id = (context.bot.send_sticker(chat_id=config.get('section_a', 'cache_id'), sticker=mixed[1]))['sticker']['file_id']
+#           # we can't send files directly from inline mode, so we have to store it in a 'cache' channel
             context.bot.send_sticker(chat_id=update.effective_chat.id, sticker=file_id)
+#           # now we can use the posted file's id to send it, either normally or through inline mode
             s.dict[pair] = file_id
             s.sync()
             if mixed[0] == 'bruted': 
@@ -70,6 +78,7 @@ def inline_mix(update: Update, context: CallbackContext):
     pair = update.inline_query.query
     if not pair:
         return
+#       # we check if the inline message field actually contains an request
     results = []
     if pair[::-1] in s.dict:
         pair = pair[::-1]
@@ -100,13 +109,14 @@ def inline_mix(update: Update, context: CallbackContext):
                 update.inline_query.id, results,
                 switch_pm_text = "Unfortunately, these emoji don't mix. See /about for the list of available emoji.",
                 switch_pm_parameter = '0')
+#           # error messages have to be shown above the message field now
         else:
             context.bot.answer_inline_query(
             update.inline_query.id, results,
             switch_pm_text = f"Weird error. Please report it to @gershik with the emoji that you tried. Code: {mixed[0]}_{pair}",
             switch_pm_parameter = '0')
     context.bot.answer_inline_query(update.inline_query.id, results)
-
+#   # the response is shown above the message field
 
 config = ConfigParser()
 if not exists('settings.ini'):
