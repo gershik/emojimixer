@@ -12,7 +12,7 @@ Google stores the combinations on their servers. They can be accessed by links t
 ```
 python3 -m venv venv
 source venv/bin/activate
-python3 -m pip install requirements.txt
+python3 -m pip install -r requirements.txt
 python3 bot.py
 ```
 The built-in config generator will help you do the rest.
